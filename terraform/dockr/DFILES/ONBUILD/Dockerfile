@@ -1,7 +1,7 @@
-# Use Ubuntu as base image
+# Use Ubuntu 22.04 as the base image
 FROM ubuntu:22.04
 
-# Install nginx
+# Install nginx and clean up apt cache to reduce image size
 RUN apt-get update && \
     apt-get install -y nginx && \
     rm -rf /var/lib/apt/lists/*
@@ -9,8 +9,8 @@ RUN apt-get update && \
 # Remove the default nginx index page
 RUN rm -f /var/www/html/index.nginx-debian.html
 
-# This executes when another image uses this as a base
+# This executes if another Dockerfile uses this image as its base
 ONBUILD COPY index.html /var/www/html/index.html
 
-# Start nginx in foreground
+# Start nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
