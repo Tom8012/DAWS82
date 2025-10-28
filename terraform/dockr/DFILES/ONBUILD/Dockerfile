@@ -9,6 +9,9 @@ RUN apt-get update && \
 # Remove the default nginx index page
 RUN rm -f /var/www/html/index.nginx-debian.html
 
+# Copy index.html for standalone use
+COPY index.html /var/www/html/index.html
+
 # This executes if another Dockerfile uses this image as its base
 ONBUILD COPY index.html /var/www/html/index.html
 
